@@ -1,0 +1,45 @@
+<div id="read" ng-controller="ReadCtrl" ng-cloak>
+    <div class="page-container">
+        <!--/content-inner-->
+        <div class="left-content">
+            <div class="mother-grid-inner">
+                <div ng-include="'app/partials/navbar.html'"></div>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a>Home</a><i class="fa fa-angle-right"></i>Inbox</li>
+                </ol>
+                <div class="inbox-mail">
+                    <div class="col-md-3 compose w3layouts">
+                        <h2 class="composer-btn" data-toggle="modal" data-target="#composeModal">Compose</h2>
+                        <nav class="nav-sidebar">
+                            <ul class="nav tabs">
+                                <li><a ui-sref="inbox" data-toggle="tab" aria-expanded="true"><i class="fa fa-inbox"></i>Inbox <span>{{count.inbox}}</span><div class="clearfix"></div></a></li>
+                                <li class=""><a ui-sref="sent" data-toggle="tab" aria-expanded="false"><i class="fa fa-paper-plane-o"></i>Sent <span>{{count.sent}}</span></a></li>
+                                <li class=""><a ui-sref="draft" data-toggle="tab" aria-expanded="false"><i class="fa fa-pencil-square-o"></i>Draft <span>{{count.draft}}</span><div class="clearfix"></div></a></li>
+                                <li class=""><a ui-sref="trash" data-toggle="tab" aria-expanded="false"><i class="fa fa-trash-o"></i>Trash <span>{{count.trash}}</span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- tab content -->
+                    <div class="col-md-9 tab-content tab-content-in w3">
+                        <div class="tab-pane text-style active" id="tab1">
+                            <div class="inbox-right">
+                                <div class="mailbox-content">
+                                    <h3>{{mail.subject}}</h3>
+                                    <hr/>
+                                    <p>
+                                        <strong>{{mail.fromName}} &lt;{{mail.from}}&gt;</strong></p>
+                                    <p><span><u>to</u></span>&nbsp;&nbsp;<strong>Me</strong></p>
+                                    <hr/>
+                                    <p>{{mail.body}}</p>
+                                    <p class="pull-right"><i class="fa fa-paperclip" aria-hidden="true"></i> <a target="_blank" href="http://localhost:8000/uploads/{{mail.attachment}}">{{mail.attachment}}</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--//content-inner-->
+    </div>
+</div>
+<div ng-include="'app/partials/compose.html'"></div>
