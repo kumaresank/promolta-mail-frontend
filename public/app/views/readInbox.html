@@ -1,4 +1,4 @@
-<div id="read" ng-controller="ReadCtrl" ng-cloak>
+<div id="readInbox" ng-controller="ReadInboxCtrl" ng-cloak>
     <div class="page-container">
         <!--/content-inner-->
         <div class="left-content">
@@ -27,11 +27,11 @@
                                     <h3>{{mail.subject}}</h3>
                                     <hr/>
                                     <p>
-                                        <strong>{{mail.fromName}} &lt;{{mail.from}}&gt;</strong></p>
+                                        <strong>{{mail.fromName}} </strong>&lt;{{mail.from}}&gt;</p>
                                     <p><span><u>to</u></span>&nbsp;&nbsp;<strong>Me</strong></p>
                                     <hr/>
                                     <p>{{mail.body}}</p>
-                                    <p class="pull-right"><i class="fa fa-paperclip" aria-hidden="true"></i> <a target="_blank" href="http://localhost:8000/uploads/{{mail.attachment}}">{{mail.attachment}}</a></p>
+                                    <p class="pull-right" ng-if="mail.attachment"><i class="fa fa-paperclip" aria-hidden="true"></i> <a target="_blank" href="http://localhost:8000/uploads/{{mail.attachment}}">{{mail.attachment}}</a></p>
                                 </div>
                             </div>
                         </div>

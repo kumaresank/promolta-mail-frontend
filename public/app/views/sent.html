@@ -42,10 +42,13 @@
                                                     {{x.subject}}
                                                 </td>
                                                 <td>
-                                                    {{x.body}}
+                                                    {{ x.body | limitTo: 50 }}{{x.body.length > 50 ? '...' : ''}}
                                                 </td>
                                                 <td>
                                                     <a target="_blank" href="http://localhost:8000/uploads/{{x.attachment}}">{{x.attachment}}</a>
+                                                </td>
+                                                <td>
+                                                    <a ui-sref="sentMessage({msgId:x.id})">View</a>
                                                 </td>
                                                 <td>
                                                     {{x.created_at}}

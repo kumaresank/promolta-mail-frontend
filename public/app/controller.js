@@ -1,5 +1,5 @@
 angular.module('promoltaApp')
-    .controller('AppCtrl', function($scope, $auth, $state, $http) {
+    .controller('AppCtrl', function($scope, $auth, $state, $http, $rootScope, toastr) {
         $scope.compose = {
             email: '',
             subject: '',
@@ -10,7 +10,7 @@ angular.module('promoltaApp')
             $auth.logout();
             $state.go('login');
         }
-        if ($auth.isAuthenticated) {
+        $rootScope.getCount = function() {
             $http.get("http://localhost:8000/api/mail/count")
                 .then(function(response) {
                     $scope.count = response.data;
@@ -26,6 +26,8 @@ angular.module('promoltaApp')
                 .then(function(response) {
                     if (response.data.success) {
                         $('#composeModal').modal('toggle');
+                        $rootScope.getCount();
+                        toastr.success('Success', 'Mail Sent!');
                     }
                 });
         }
@@ -45,32 +47,58 @@ angular.module('promoltaApp')
                 });
         }
     })
-    .controller('InboxCtrl', function($scope, $auth, $state, $http) {
+    .controller('InboxCtrl', function($scope, $auth, $state, $http, $rootScope) {
+        $rootScope.getCount();
         $http.get("http://localhost:8000/api/inbox")
             .then(function(response) {
                 $scope.inbox = response.data;
             });
     })
-    .controller('SentCtrl', function($scope, $auth, $state, $http) {
+    .controller('SentCtrl', function($scope, $auth, $state, $http, $rootScope) {
+        $rootScope.getCount();
         $http.get("http://localhost:8000/api/sent")
             .then(function(response) {
                 $scope.sent = response.data;
             });
     })
-    .controller('DraftCtrl', function($scope, $auth, $state, $http) {
+    .controller('DraftCtrl', function($scope, $auth, $state, $http, $rootScope) {
+        $rootScope.getCount();
         $http.get("http://localhost:8000/api/draft")
             .then(function(response) {
                 $scope.draft = response.data;
             });
     })
-    .controller('TrashCtrl', function($scope, $auth, $state, $http) {
+    .controller('TrashCtrl', function($scope, $auth, $state, $http, $rootScope) {
+        $rootScope.getCount();
         $http.get("http://localhost:8000/api/trash")
             .then(function(response) {
                 $scope.trash = response.data;
             });
     })
-    .controller('ReadCtrl', function($scope, $auth, $state, $http, $stateParams) {
+    .controller('ReadInboxCtrl', function($scope, $auth, $state, $http, $stateParams, $rootScope) {
+        $rootScope.getCount();
         $http.get("http://localhost:8000/api/inbox/" + $stateParams.msgId)
+            .then(function(response) {
+                $scope.mail = response.data;
+            });
+    })
+    .controller('ReadSentCtrl', function($scope, $auth, $state, $http, $stateParams, $rootScope) {
+        $rootScope.getCount();
+        $http.get("http://localhost:8000/api/inbox/" + $stateParams.msgId)
+            .then(function(response) {
+                $scope.mail = response.data;
+            });
+    })
+    .controller('ReadDraftCtrl', function($scope, $auth, $state, $http, $stateParams, $rootScope) {
+        $rootScope.getCount();
+        $http.get("http://localhost:8000/api/draft/" + $stateParams.msgId)
+            .then(function(response) {
+                $scope.mail = response.data;
+            });
+    })
+    .controller('ReadTrashCtrl', function($scope, $auth, $state, $http, $stateParams, $rootScope) {
+        $rootScope.getCount();
+        $http.get("http://localhost:8000/api/trash/" + $stateParams.msgId)
             .then(function(response) {
                 $scope.mail = response.data;
             });
